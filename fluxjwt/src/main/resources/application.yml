@@ -2,5 +2,14 @@ spring:
   application:
     name: fluxjwt
 
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/auth_jwt
+
+  security:
+    user:
+      name: admin
+      password: admin
+
 server:
   port: 8081
