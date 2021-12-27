@@ -1,5 +1,8 @@
 package com.schoolofnet.fluxjwt.config.filter;
 
+import com.schoolofnet.fluxjwt.config.AuthManager;
+import com.schoolofnet.fluxjwt.config.SecurityContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,15 +16,21 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
  * @author rafael for DevDusCorre on 27/12/2021
  */
 @Configuration
+@RequiredArgsConstructor
 @EnableWebFluxSecurity
 public class SecurityConfigurationFilter {
+
+    private final AuthManager authManager;
+    private final SecurityContext securityContext;
 
     @Bean
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http.cors().disable()
                 .csrf().disable()
+                .authenticationManager(authManager)
+                .securityContextRepository(securityContext)
                 .authorizeExchange()
-                .pathMatchers(new String[]{"/sign-up/**"}).permitAll()
+                .pathMatchers("/sign-up/**").permitAll()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyExchange().authenticated()
                 .and()
