@@ -4,7 +4,13 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/auth_jwt
+      authentication-database: admin
+      host: localhost
+      port: 27017
+      database: AUTH_JWT
+      username: root
+      password: root!
+
 
   security:
     user:
