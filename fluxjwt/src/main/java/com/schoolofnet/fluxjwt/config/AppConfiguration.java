@@ -4,6 +4,7 @@ import com.schoolofnet.fluxjwt.handler.AuthHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -24,5 +25,11 @@ public class AppConfiguration {
     public RouterFunction<ServerResponse> auth(AuthHandler handler) {
         return RouterFunctions.route(POST("/sign-up")
                 .and(accept(MediaType.APPLICATION_JSON)), handler::signUp); // handlerFunction
+    }
+
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
