@@ -30,7 +30,7 @@ public class SecurityConfigurationFilter {
                 .authenticationManager(authManager)
                 .securityContextRepository(securityContext)
                 .authorizeExchange()
-                .pathMatchers("/sign-up/**").permitAll()
+                .pathMatchers("/login/**","/sign-up/**").permitAll()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyExchange().authenticated()
                 .and()
